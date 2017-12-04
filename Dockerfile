@@ -2,6 +2,15 @@ FROM ubuntu:16.04
 RUN apt-get update && apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 	apache2 apt-utils 
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
+	software-properties-common
+
+RUN add-apt-repository -y ppa:ondrej/php
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
+	php7.1
+
 RUN \
  sed -i "s/AllowOverride None/AllowOverride All/" /etc/apache2/apache2.conf
 
