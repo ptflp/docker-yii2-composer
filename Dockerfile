@@ -16,7 +16,7 @@ COPY ./conf/conf-available/* /etc/apache2/conf-available/
 COPY ./conf/mods-available/* /etc/apache2/mods-available/
 
 RUN a2enmod remoteip && a2enconf remoteip && a2enmod rewrite 
-RUN chown -R www-data:www-data /var/www/html && chown -R www-data:www-data /var/lib/php
+RUN chown -R www-data:www-data /var/www/html 
 
 EXPOSE 80
 CMD ["/root/scripts/boot.sh"]
