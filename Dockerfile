@@ -15,6 +15,8 @@ ENV APACHE_RUN_USER=www-data \
 COPY ./conf/conf-available/* /etc/apache2/conf-available/
 COPY ./conf/mods-available/* /etc/apache2/mods-available/
 
+COPY ./scripts/boot.sh /root/scripts/boot.sh
+
 RUN a2enmod remoteip && a2enconf remoteip && a2enmod rewrite 
 RUN chown -R www-data:www-data /var/www/html 
 
