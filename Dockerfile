@@ -13,10 +13,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 	php7.1
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
-	curl
+	curl git
 
 RUN curl -sS https://getcomposer.org/installer | php && \
-	mv composer.phar /usr/local/bin/composer
+	mv composer.phar /usr/local/bin/composer &&\
+	composer global require "fxp/composer-asset-plugin:~1.4.5"
 RUN \
  sed -i "s/AllowOverride None/AllowOverride All/" /etc/apache2/apache2.conf
 
