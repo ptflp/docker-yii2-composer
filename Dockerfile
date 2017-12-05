@@ -1,12 +1,13 @@
 FROM ubuntu:16.04
 RUN apt-get update && apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
-	apache2 apt-utils 
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 	software-properties-common
 
-RUN add-apt-repository -y ppa:ondrej/php
+RUN DEBIAN_FRONTEND=noninteractive LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
+RUN apt-get update 
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
+	apache2 apt-utils 
+
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 	php7.1
@@ -27,7 +28,7 @@ COPY ./conf/mods-available/* /etc/apache2/mods-available/
 COPY ./scripts/boot.sh /root/scripts/boot.sh
 
 RUN mkdir /var/lock/apache2
-RUN a2enmod remoteip && a2enconf remoteip && a2enmod rewrite 
+RUN a2enmod remoteip && a2enconf remoteip && a2enmod rewrite && a2enmod php7.1
 RUN chown -R www-data:www-data /var/www/html 
 
 EXPOSE 80
