@@ -39,7 +39,7 @@ COPY ./conf/mods-available/* /etc/apache2/mods-available/
 
 COPY ./scripts/boot.sh /root/scripts/boot.sh
 COPY ./auth.json /root/.composer/auth.json
-RUN dos2unix /root/scripts/boot.sh
+RUN dos2unix /root/scripts/boot.sh && chmod +x /root/scripts/*
 RUN a2enmod remoteip && a2enconf remoteip && a2enmod rewrite && a2enmod php7.1
 RUN rm -rf /var/www/html/ && \
 	composer create-project --prefer-dist yiisoft/yii2-app-basic /var/www &&\
