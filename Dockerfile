@@ -27,7 +27,6 @@ COPY ./conf/mods-available/* /etc/apache2/mods-available/
 
 COPY ./scripts/boot.sh /root/scripts/boot.sh
 
-RUN mkdir /var/lock/apache2
 RUN a2enmod remoteip && a2enconf remoteip && a2enmod rewrite && a2enmod php7.1
 RUN chown -R www-data:www-data /var/www/html 
 
