@@ -6,18 +6,18 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 RUN DEBIAN_FRONTEND=noninteractive LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 RUN apt-get update 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
-	apache2 apt-utils 
+	apache2 apt-utils zip
 
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
-	php7.1
+	php7.1 php7.1-mbstring php7.1-xml
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 	curl git
 
 RUN curl -sS https://getcomposer.org/installer | php && \
 	mv composer.phar /usr/local/bin/composer &&\
-	composer global require "fxp/composer-asset-plugin:~1.4.5"
+	composer global require "fxp/composer-asset-plugin:~1.4.2"
 RUN \
  sed -i "s/AllowOverride None/AllowOverride All/" /etc/apache2/apache2.conf
 
@@ -35,6 +35,6 @@ COPY ./scripts/boot.sh /root/scripts/boot.sh
 
 RUN a2enmod remoteip && a2enconf remoteip && a2enmod rewrite && a2enmod php7.1
 RUN chown -R www-data:www-data /var/www/html 
-
+WORKDIR /var/www
 EXPOSE 80
 CMD ["/root/scripts/boot.sh"]
