@@ -42,7 +42,7 @@ COPY ./auth.json /root/.composer/auth.json
 RUN dos2unix /root/scripts/boot.sh && chmod +x /root/scripts/*
 RUN a2enmod remoteip && a2enconf remoteip && a2enmod rewrite && a2enmod php7.1
 RUN rm -rf /var/www/html/ && \
-	chown -R www-data:www-data /var/www/web &&\
+	chown -R www-data:www-data /var/www/ &&\
 	chown -R www-data:www-data /var/lib/php
 ADD http://download.icu-project.org/files/icu4c/60.1/icu4c-60_1-Ubuntu16.04-x64.tgz /root/install
 RUN tar -xzf /root/install/icu4c-60_1-Ubuntu16.04-x64.tgz -C /root/install && cp -r /root/install/icu/usr / && rm -rf /root/install
