@@ -3,7 +3,7 @@ RUN apt-get update && apt-get -y upgrade
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
 	software-properties-common && LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php && apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install \
-	apache2 apt-utils zip curl git php7.1 php7.1-dev php7.1-mbstring php7.1-xml php7.1-intl php7.1-gd php7.1-mysql php7.1-pgsql php-imagick php7.1-sqlite3 pkg-config build-essential libmemcached-dev zlib1g-dev dos2unix
+	apache2 apt-utils zip curl git php7.1 php7.1-curl php7.1-dev php7.1-mbstring php7.1-xml php7.1-intl php7.1-gd php7.1-mysql php7.1-pgsql php-imagick php7.1-sqlite3 pkg-config build-essential libmemcached-dev zlib1g-dev dos2unix
 WORKDIR /root/install
 
 RUN git clone --depth 1 https://github.com/php-memcached-dev/php-memcached.git && \
@@ -16,7 +16,8 @@ RUN git clone --depth 1 https://github.com/php-memcached-dev/php-memcached.git &
 RUN cp /usr/bin/php7.1 /usr/bin/php && \
 	curl -sS https://getcomposer.org/installer | php && \
 	mv composer.phar /usr/local/bin/composer &&\
-	composer global require "fxp/composer-asset-plugin:~1.4.2"
+	composer global require "fxp/composer-asset-plugin:~1.4.2" &&\
+	composer global require hirak/prestissimo
 
 RUN \
  sed -i "s/AllowOverride None/AllowOverride All/" /etc/apache2/apache2.conf && \
