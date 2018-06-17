@@ -14,7 +14,7 @@ RUN git clone --depth 1 https://github.com/php-memcached-dev/php-memcached.git &
 	make && \
 	mv modules/ /usr/local/memcached/ && \
 	cp /usr/bin/php7.1 /usr/bin/php && \
-	curl -sS http://download.icu-project.org/files/icu4c/60.1/icu4c-60_1-Ubuntu16.04-x64.tgz && \
+	curl http://download.icu-project.org/files/icu4c/60.1/icu4c-60_1-Ubuntu16.04-x64.tgz --output /root/install/icu4c-60_1-Ubuntu16.04-x64.tgz && \
 	tar -xzf /root/install/icu4c-60_1-Ubuntu16.04-x64.tgz -C /root/install && cp -r /root/install/icu/usr / && \
 	curl -sS https://getcomposer.org/installer | php && \
 	mv composer.phar /usr/local/bin/composer &&\
@@ -36,7 +36,8 @@ ENV APACHE_RUN_USER=www-data \
     APACHE_RUN_DIR=/var/run/apache2 \
     APACHE_PID_FILE=/var/run/apache2.pid
 
-COPY ./conf/* /etc/apache2/
+COPY ./conf/conf-available/* /etc/apache2/conf-available/
+COPY ./conf/mods-available/* /etc/apache2/mods-available/
 
 COPY ./scripts/boot.sh /root/scripts/boot.sh
 RUN dos2unix /root/scripts/boot.sh && chmod +x /root/scripts/* && \
