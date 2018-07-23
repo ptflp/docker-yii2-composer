@@ -4,16 +4,18 @@ set -e
 rm -f /run/apache2.pid
 rm -f /run/apache2/apache2.pid
 rm -f /var/run/apache2/apache2.pid
-file="/var/www/project-init.bash"
+pinit="/var/www/project-init.bash"
+file="/var/www/vendor/autoload.php"
 if [ -f "$file" ]
 then
-	if [[ $INIT != 1 ]]; then
+	echo "project installed"
+else
+	if [ -f "$pinit" ]; then
 		sleep 21
 		cd /var/www/
-		bash /var/www/project-init.bash
+		dos2unix $pinit
+		chmod +x $pinit
+		bash $pinit
 	fi
-else
-	echo "$file not found."
 fi
-export INIT=1
 exec apache2 -DFOREGROUND
