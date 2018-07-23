@@ -14,8 +14,6 @@ RUN git clone --depth 1 https://github.com/php-memcached-dev/php-memcached.git &
 	make && \
 	mv modules/ /usr/local/memcached/ && \
 	cp /usr/bin/php7.1 /usr/bin/php && \
-	curl http://download.icu-project.org/files/icu4c/60.1/icu4c-60_1-Ubuntu16.04-x64.tgz --output /root/install/icu4c-60_1-Ubuntu16.04-x64.tgz && \
-	tar -xzf /root/install/icu4c-60_1-Ubuntu16.04-x64.tgz -C /root/install && cp -r /root/install/icu/usr / && \
 	curl -sS https://getcomposer.org/installer | php && \
 	mv composer.phar /usr/local/bin/composer &&\
 	composer global require "fxp/composer-asset-plugin:~1.4.2" &&\
